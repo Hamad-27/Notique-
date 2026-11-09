@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4ecdf">
+  <title>NOTIQUE — Stationery</title>
+  <meta name="description" content="Discover thoughtful stationery and everyday desk essentials at NOTIQUE.">
+  <style>
+    :root{--ink:#171914;--cream:#f4ecdf;--paper:#fffaf2;--gold:#b49a75;--muted:#746d62;--line:#ded3c3}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .announcement{background:var(--ink);color:#f8f1e7;text-align:center;padding:9px 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+    header{height:82px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(244,236,223,.92);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:58px;height:48px;object-fit:cover;object-position:center;border-radius:4px;mix-blend-mode:multiply}
+    .brand-word{font-family:Georgia,serif;font-size:24px;letter-spacing:.23em}
+    .brand-word small{display:block;font:9px Arial,sans-serif;letter-spacing:.42em;text-align:center;margin-top:3px}
+    nav{display:flex;gap:30px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+    nav a{padding:10px 0;position:relative}
+    nav a:after{content:"";position:absolute;left:0;bottom:3px;width:0;height:1px;background:var(--ink);transition:.3s}
+    nav a:hover:after{width:100%}
+    .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fffaf2;padding:14px 21px;border:1px solid var(--ink);font-size:10px;letter-spacing:.16em;text-transform:uppercase;transition:.25s}
+    .nav-cta:hover,.btn:hover{background:transparent;color:var(--ink)}
+    .menu-btn{display:none;background:none;border:0;font-size:24px}
+    .hero{min-height:620px;padding:80px 8vw 75px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px;overflow:hidden;position:relative}
+    .eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+    h1{font:clamp(48px,7vw,88px)/.98 Georgia,serif;font-weight:400;letter-spacing:-.045em;margin:22px 0}
+    h1 em{font-weight:400;color:#9d8462}
+    .hero-copy p{max-width:420px;color:#665f55;line-height:1.8;font-size:14px;margin:0 0 30px}
+    .hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .text-link{font-size:10px;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid var(--gold);padding:12px 3px}
+    .hero-art{height:440px;position:relative;display:grid;place-items:center;perspective:1100px}
+    .glow{position:absolute;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,#d9c7a9 0%,rgba(217,199,169,.35) 48%,transparent 72%);filter:blur(7px)}
+    .desk{position:absolute;width:min(440px,100%);height:260px;bottom:42px;background:linear-gradient(145deg,#e3d4bf,#c9b69a);border-radius:50%;transform:rotateX(68deg) rotateZ(-14deg);box-shadow:0 45px 45px #8c785b38}
+    .book{position:absolute;width:220px;height:285px;top:65px;left:50%;transform:translateX(-50%) rotateZ(-13deg) rotateY(-18deg);transform-style:preserve-3d;animation:bookFloat 5s ease-in-out infinite;filter:drop-shadow(24px 28px 15px #34281938)}
+    .book-cover{position:absolute;inset:0;background:linear-gradient(125deg,#262820,#11130f);border:2px solid #a68b65;border-radius:5px 12px 12px 5px;transform:translateZ(10px);box-shadow:inset 8px 0 8px #ffffff12}
+    .book-cover:before{content:"NOTIQUE";position:absolute;top:42%;width:100%;text-align:center;color:#d8c4a4;font:20px Georgia,serif;letter-spacing:.2em}
+    .book-cover:after{content:"STATIONERY";position:absolute;top:53%;width:100%;text-align:center;color:#b49a75;font-size:7px;letter-spacing:.42em}
+    .book-pages{position:absolute;top:7px;right:-13px;width:15px;height:270px;background:repeating-linear-gradient(0deg,#e9dfcf 0 2px,#c8bda9 3px 4px);transform:skewY(-3deg) translateZ(1px)}
+    .book-spine{position:absolute;left:-9px;top:3px;width:13px;height:278px;background:#9e8768;transform:rotateY(-45deg)}
+    .pen{position:absolute;width:19px;height:210px;top:20px;right:18%;transform:rotate(29deg);transform-origin:center;animation:penFloat 4.5s ease-in-out infinite}
+    .pen-body{height:170px;background:linear-gradient(90deg,#10120e,#55564c 45%,#171914 75%);border-radius:9px 9px 3px 3px;box-shadow:8px 15px 15px #3428193d}
+    .pen-tip{width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:35px solid #b49a75;margin:auto}
+    .pen-cap{height:17px;background:#b49a75;border-radius:8px 8px 0 0;margin-bottom:3px}
+    .spark{position:absolute;color:#b49a75;font-size:42px;animation:twinkle 3s ease-in-out infinite}
+    .spark.one{top:65px;right:13%}.spark.two{bottom:110px;left:13%;font-size:25px;animation-delay:1s}
+    @keyframes bookFloat{0%,100%{transform:translate(-50%,0) rotateZ(-13deg) rotateY(-18deg)}50%{transform:translate(-50%,-17px) rotateZ(-10deg) rotateY(-10deg)}}
+    @keyframes penFloat{0%,100%{transform:translateY(0) rotate(29deg)}50%{transform:translateY(-16px) rotate(34deg)}}
+    @keyframes twinkle{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+    .ticker{background:#1a1c16;color:#eee4d5;padding:16px 0;overflow:hidden;white-space:nowrap;font:12px Georgia,serif;letter-spacing:.25em}
+    .ticker span{display:inline-block;padding-left:100%;animation:marquee 24s linear infinite}
+    @keyframes marquee{to{transform:translateX(-100%)}}
+    section{padding:95px 8vw}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:36px}
+    .section-head h2{font:clamp(35px,5vw,54px) Georgia,serif;font-weight:400;margin:10px 0 0}
+    .section-head p{max-width:300px;color:var(--muted);font-size:12px;line-height:1.7}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .product{background:var(--paper);padding:13px;border:1px solid #e4d9ca;transition:transform .2s,box-shadow .2s;transform-style:preserve-3d;will-change:transform}
+    .product-art{height:245px;display:grid;place-items:center;background:linear-gradient(145deg,#f0e7d9,#e7dac7);position:relative;overflow:hidden}
+    .product-art:after{content:"";position:absolute;width:190px;height:35px;border-radius:50%;background:#6f5c4430;filter:blur(12px);bottom:28px}
+    .mini-book{width:105px;height:145px;background:linear-gradient(120deg,#25271f,#10120f);border:1px solid #a58b68;box-shadow:15px 18px 15px #2b241b30;transform:rotate(-12deg);position:relative;z-index:1}
+    .mini-book:after{content:"N.";position:absolute;inset:43% 0;text-align:center;color:#c9b18c;font:32px Georgia,serif}
+    .sticky-stack{width:120px;height:115px;position:relative;z-index:1;transform:rotate(-9deg)}
+    .sticky-stack i{position:absolute;width:100px;height:100px;box-shadow:8px 12px 13px #55452c28;border:1px solid #bda98d}
+    .sticky-stack i:nth-child(1){background:#b6a083;top:13px;left:15px}.sticky-stack i:nth-child(2){background:#e8d8bd;top:7px;left:8px}.sticky-stack i:nth-child(3){background:#f8f0e3;top:0;left:0}
+    .pen-set{display:flex;gap:13px;transform:rotate(24deg);z-index:1}
+    .pen-set i{display:block;width:13px;height:150px;border-radius:8px;background:linear-gradient(90deg,#151711,#7c766a,#191b15);box-shadow:9px 12px 12px #4b3d2c38}
+    .pen-set i:nth-child(2){background:linear-gradient(90deg,#b49a75,#e0cda9,#907956);transform:translateY(15px)}
+    .product-info{padding:17px 7px 9px;display:flex;justify-content:space-between;gap:10px}
+    .product-info h3{font:19px Georgia,serif;font-weight:400;margin:0 0 7px}
+    .product-info p{font-size:10px;color:var(--muted);margin:0;letter-spacing:.08em}
+    .price{font-size:12px;white-space:nowrap}
+    .order-link{display:block;text-align:center;border:1px solid var(--line);padding:12px;margin:8px 7px 4px;font-size:9px;letter-spacing:.17em;text-transform:uppercase;transition:.2s}
+    .order-link:hover{background:var(--ink);color:white;border-color:var(--ink)}
+    .about{background:#1a1c16;color:#f4ecdf;display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:center}
+    .about h2{font:clamp(38px,5vw,60px) Georgia,serif;font-weight:400;margin:15px 0}
+    .about p{color:#c8bdad;font-size:13px;line-height:1.9;max-width:470px}
+    .about-mark{border:1px solid #8c785b;padding:45px;text-align:center;transform:rotate(-3deg);box-shadow:16px 18px 0 #b49a7520}
+    .about-mark strong{font:clamp(35px,6vw,70px) Georgia,serif;letter-spacing:.16em;font-weight:400}
+    .about-mark span{display:block;color:#b49a75;letter-spacing:.4em;font-size:10px;margin-top:12px}
+    .contact{text-align:center}
+    .contact h2{font:clamp(38px,5vw,58px) Georgia,serif;font-weight:400;margin:12px 0}
+    .contact p{color:var(--muted);font-size:13px;margin:0 auto 25px;max-width:420px;line-height:1.8}
+    footer{padding:25px 8vw;background:#171914;color:#c9c0b3;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:10px;letter-spacing:.1em}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:760px){
+      header{height:70px;padding:0 5vw}.brand img{width:45px;height:40px}.brand-word{font-size:20px}
+      nav{display:none;position:absolute;top:70px;left:0;right:0;background:var(--cream);padding:20px 6vw 25px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line);gap:12px}
+      nav.open{display:flex}.menu-btn{display:block}
+      .nav-cta{padding:11px 14px}.hero{grid-template-columns:1fr;padding:65px 7vw 35px;gap:0}.hero-art{height:365px;order:-1}.book{top:48px;width:180px;height:235px}.book-pages{height:220px}.book-spine{height:228px}.pen{height:170px;right:13%}.pen-body{height:135px}
+      .hero-copy{text-align:center}.hero-copy p{margin-left:auto;margin-right:auto}.hero-actions{justify-content:center}
+      section{padding:70px 6vw}.section-head{display:block}.products{grid-template-columns:1fr 1fr;gap:12px}.product-art{height:185px}.product-info{display:block}.price{display:block;margin-top:9px}
+      .about{grid-template-columns:1fr;gap:35px}.about-mark{padding:30px}
+    }
+    @media(max-width:420px){.products{grid-template-columns:1fr}.product-art{height:230px}.hero-art{height:320px}.book{width:160px;height:215px}.book-pages{height:200px}.book-spine{height:208px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="announcement">Thoughtful details for everyday creativity</div>
+  <header>
+    <a class="brand" href="#home" aria-label="NOTIQUE home">
+      <img src="notique-logo.jpg" alt="NOTIQUE logo">
+      <span class="brand-word">NOTIQUE<small>STATIONERY</small></span>
+    </a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+    <nav>
+      <a href="#home">Home</a><a href="#shop">Shop</a><a href="#about">Our Story</a><a href="#contact">Contact</a>
+      <a class="nav-cta" href="#shop">Explore collection</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">The art of everyday notes</div>
+        <h1>Make space<br>for <em>ideas.</em></h1>
+        <p>Beautiful little essentials for big ideas. Discover stationery made to bring a little more inspiration to your everyday routine.</p>
+        <div class="hero-actions"><a class="btn" href="#shop">Shop the collection</a><a class="text-link" href="#about">Discover NOTIQUE</a></div>
+      </div>
+      <div class="hero-art" aria-label="Floating 3D notebook and pen illustration">
+        <div class="glow"></div><div class="desk"></div>
+        <div class="book"><div class="book-spine"></div><div class="book-cover"></div><div class="book-pages"></div></div>
+        <div class="pen"><div class="pen-cap"></div><div class="pen-body"></div><div class="pen-tip"></div></div>
+        <div class="spark one">✦</div><div class="spark two">✧</div>
+      </div>
+    </section>
+
+    <div class="ticker"><span>NOTIQUE  ✦  WRITE YOUR OWN STORY  ✦  LITTLE DETAILS, BIG IDEAS  ✦  NOTIQUE  ✦  WRITE YOUR OWN STORY  ✦  </span></div>
+
+    <section id="shop">
+      <div class="section-head reveal">
+        <div><div class="eyebrow">A considered collection</div><h2>Shop essentials</h2></div>
+        <p>A first look at our stationery collection. Product names and sample prices can be edited as your stock grows.</p>
+      </div>
+      <div class="products">
+        <article class="product reveal" data-tilt>
+          <div class="product-art"><div class="mini-book"></div></div>
+          <div class="product-info"><div><h3>Classic Notebook</h3><p>For plans, thoughts & ideas</p></div><span class="price">₹120</span></div>
+          <a class="order-link" href="#" onclick="orderProduct('Classic Notebook');return false">Enquire to order</a>
+        </article>
+        <article class="product reveal" data-tilt>
+          <div class="product-art"><div class="sticky-stack"><i></i><i></i><i></i></div></div>
+          <div class="product-info"><div><h3>Memo Notes</h3><p>Small notes, clear thoughts</p></div><span class="price">₹60</span></div>
+          <a class="order-link" href="#" onclick="orderProduct('Memo Notes');return false">Enquire to order</a>
+        </article>
+        <article class="product reveal" data-tilt>
+          <div class="product-art"><div class="pen-set"><i></i><i></i><i></i></div></div>
+          <div class="product-info"><div><h3>Signature Pen Set</h3><p>Smooth everyday writing</p></div><span class="price">₹90</span></div>
+          <a class="order-link" href="#" onclick="orderProduct('Signature Pen Set');return false">Enquire to order</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="reveal"><div class="eyebrow" style="color:#b49a75">A little about us</div><h2>Made for the moments you put into words.</h2>
+        <p>NOTIQUE is a stationery shop built around the joy of writing, planning and creating. We're starting with a thoughtful collection of everyday essentials and growing one page at a time.</p>
+      </div>
+      <div class="about-mark reveal"><strong>N.</strong><span>THE NOTIQUE EDIT</span></div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="eyebrow">We'd love to hear from you</div>
+      <h2>Let's make a note.</h2>
+      <p>Have a question about a product or want to place an order? Send us a message and we'll get back to you.</p>
+      <a class="btn" id="contact-whatsapp" href="#" onclick="contactWhatsApp();return false">Chat on WhatsApp</a>
+    </section>
+  </main>
+
+  <footer><span>© <span id="year"></span> NOTIQUE STATIONERY</span><span>THOUGHTFULLY CURATED · MADE FOR YOU</span></footer>
+
+  <script>
+    // Replace this with a guardian-approved business WhatsApp number:
+    // India country code + number, digits only. Example format: 919876543210
+    const WHATSAPP_NUMBER = "91YOURNUMBER";
+
+    function openWhatsApp(message){
+      if(WHATSAPP_NUMBER.includes("YOURNUMBER")){
+        alert("The WhatsApp number has not been added yet. Ask a parent or guardian to set up a business contact number, then edit WHATSAPP_NUMBER in index.html.");
+        return;
+      }
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+    }
+    function orderProduct(name){openWhatsApp("Hello NOTIQUE! I'd like to enquire about: " + name + ". Please share availability and delivery details.");}
+    function contactWhatsApp(){openWhatsApp("Hello NOTIQUE! I'd like to know more about your stationery collection.");}
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}});
+    }, {threshold:.12});
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // Gentle 3D tilt on pointer devices; touch devices keep the calm floating animation.
+    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+      document.querySelectorAll("[data-tilt]").forEach(card => {
+        card.addEventListener("pointermove", e => {
+          const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+          card.style.transform=`perspective(800px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-4px)`;
+          card.style.boxShadow=`${-x*12}px ${y*12+12}px 25px #493a2818`;
+        });
+        card.addEventListener("pointerleave",()=>{card.style.transform="";card.style.boxShadow="";});
+      });
+    }
+  </script>
+</body>
+</html>
